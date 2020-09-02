@@ -1,10 +1,11 @@
-from lexer import InputStream, lexer
+from lexer import InputStream, InputException, lexer
 from parser import parse
 from interpreter import evaluate
 
 
 def repl():
     while True:
+        program = ""
         try:
             program = input("squirrel> ")
         except EOFError:
@@ -14,7 +15,10 @@ def repl():
         if not program:
             continue
 
-        print(evaluate(parse(lexer(InputStream(program)))))
+        try:
+            print(evaluate(parse(lexer(InputStream(program)))))
+        except InputException as e:
+            print(e)
 
 
 if __name__ == "__main__":
