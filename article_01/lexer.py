@@ -105,8 +105,8 @@ def lexer(input: InputStream) -> list:
             current = input.next()
             num += read_while(is_digit)
 
-            if input.peek() == ".":
-                raise InputException("Invalid Number constant")
+        if input.peek() == "." and has_dot:
+            raise InputException("Invalid Number constant")
 
         if has_dot:
             tokens.append(
@@ -136,6 +136,3 @@ def lexer(input: InputStream) -> list:
     tokens.append(Token(EOF, None, input.line, input.col, input.col))
 
     return tokens
-
-
-print(lexer(InputStream("5.22")))
