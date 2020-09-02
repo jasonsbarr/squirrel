@@ -37,11 +37,17 @@ class InputStream:
     def next(self):
         """Get next char from input and advance position"""
         self.pos += 1
-        char = self.input[self.pos]
+
+        try:
+            char = self.input[self.pos]
+        except IndexError:
+            char = ""
 
         if char == "\n":
             self.line += 1
             self.col = 0
+        else:
+            self.col += 1
 
         return char
 
@@ -51,25 +57,47 @@ class InputStream:
 
     def eof(self):
         """Create EOF token when reach end of input"""
-        return Token(EOF, None, self.line, self.col, self.col)
+        return self.pos > len(self.input) - 1
 
     def die(self, msg):
         """Raise an exception on bad input"""
         raise InputException(f"{msg} at ({self.line}:{self.col})")
 
 
+# Helper functions
+def is_digit(char):
+    return bool(re.match("[0-9]", char))
+
+
+def is_whitespace(char):
+    return bool(re.match(r"\s", char))
+
+
+# The main lexer function
 def lexer(input: InputStream) -> list:
     current = ""
     tokens = []
 
-    def advance():
-        nonlocal tokens
-
-        try:
+    def read_while(predicate):
+        nonlocal current
+        s = ""
+        while(not input.eof() and predicate(input.peek())):
+            s += current
             current = input.next()
-        except IndexError:
-            tokens.append(input.eof())
+        return s
 
+    def read_number():
+        nonlocal tokens
+        start = input.col
+        num = read_while(is_digit)
+        tokens.append(Token(NUMBER, num, input.line, start, input.col))
 
-def is_digit(char):
-    return bool(re.match("[0-9]", char))
+    while input.pos <= len(input.input):
+        current = input.next()
+
+        if is_digit(current):
+            read_number()
+
+    tokens.append(Token(EOF, None, input.line, input.col, input.col))
+
+    return tokens
