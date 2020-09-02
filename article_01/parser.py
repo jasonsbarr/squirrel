@@ -1,7 +1,7 @@
 from article_01.ast import ProgramNode, NumberNode
 
 
-def parser(tokens):
+def parse(tokens):
     ast = ProgramNode(tokens)
     pos = -1
 
