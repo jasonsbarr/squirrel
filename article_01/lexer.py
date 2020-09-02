@@ -53,7 +53,12 @@ class InputStream:
 
     def peek(self):
         """Get value of character at current pos"""
-        return self.input[self.pos]
+        try:
+            char = self.input[self.pos]
+        except IndexError:
+            char = ""
+
+        return char
 
     def eof(self):
         """Create EOF token when reach end of input"""
@@ -79,6 +84,7 @@ def lexer(input: InputStream) -> list:
     tokens = []
 
     def read_while(predicate):
+        """Take in multiple characters while a condition is met"""
         nonlocal current
         s = ""
         while(not input.eof() and predicate(input.peek())):
@@ -87,17 +93,49 @@ def lexer(input: InputStream) -> list:
         return s
 
     def read_number():
-        nonlocal tokens
+        """Create number token from int or float literal"""
+        nonlocal tokens, current
         start = input.col
+        has_dot = False
         num = read_while(is_digit)
-        tokens.append(Token(NUMBER, num, input.line, start, input.col))
 
+        if input.peek() == ".":
+            has_dot = True
+            num += current
+            current = input.next()
+            num += read_while(is_digit)
+
+            if input.peek() == ".":
+                raise InputException("Invalid Number constant")
+
+        if has_dot:
+            tokens.append(
+                Token(
+                    NUMBER,
+                    float(num),
+                    input.line,
+                    start,
+                    input.col))
+        else:
+            tokens.append(
+                Token(
+                    NUMBER,
+                    int(num),
+                    input.line,
+                    start,
+                    input.col))
+
+    # While there is input, advance the counter to get the next character
     while input.pos <= len(input.input):
         current = input.next()
 
         if is_digit(current):
             read_number()
 
+    # Add the final EOF token to signal the end of input
     tokens.append(Token(EOF, None, input.line, input.col, input.col))
 
     return tokens
+
+
+print(lexer(InputStream("5.22")))
