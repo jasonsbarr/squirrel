@@ -1,17 +1,4 @@
-from ast import ProgramNode, NumberNode
-
-
-class Point:
-
-    def __init__(self, line, col):
-        self.line = line
-        self.col = col
-
-    def __str__(self):
-        return f"({self.line}:{self.col})"
-
-    def __repr__(self):
-        return f"Point({self.line}, {self.col})"
+from ast import ProgramNode, Point, NumberNode
 
 
 def parse(tokens):
@@ -24,13 +11,15 @@ def parse(tokens):
         pos += 1
         return tokens[pos]
 
-    while not token.type == "EOF":
+    def parse_atom():
         if token.type == "NUMBER":
-            ast.children.append(
-                NumberNode(
-                    token.value, Point(
-                        token.line, token.col), Point(
-                        token.line, token.col)))
+            return NumberNode(
+                token.value, Point(
+                    token.line, token.start), Point(
+                    token.line, token.end))
+
+    while not token.type == "EOF":
+        ast.children.append(parse_atom())
 
         token = get_next_token()
 
