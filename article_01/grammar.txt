@@ -1,0 +1,12 @@
+program
+  : expr+
+
+expr
+  : number
+
+number
+  : digit+
+  | digit+ '.' digit+
+
+digit
+  : [0-9]
