@@ -1,2 +1,2 @@
-def interpreter(ast):
+def evaluate(ast):
     return ast
