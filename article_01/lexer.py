@@ -129,6 +129,10 @@ def lexer(input: InputStream) -> list:
     while input.pos <= len(input.input):
         current = input.next()
 
+        if is_whitespace(current):
+            # Skip whitespace
+            read_while(is_whitespace)
+
         if is_digit(current):
             read_number()
 
