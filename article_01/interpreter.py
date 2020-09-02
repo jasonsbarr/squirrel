@@ -2,7 +2,7 @@ def evaluate(ast):
     pos = 0
     child = ast.children[pos]
 
-    def get_next_child():
+    def get_next_node():
         nonlocal pos
         pos += 1
         return ast.children[pos]
@@ -15,6 +15,6 @@ def evaluate(ast):
         current_value = eval_expr(child)
 
         try:
-            child = get_next_child()
+            child = get_next_node()
         except IndexError:
             return current_value
