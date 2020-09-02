@@ -1,3 +1,6 @@
+from parser import Point
+
+
 class ASTNode:
 
     def __init__(self, node_type, start, end):
@@ -11,8 +14,8 @@ class ProgramNode(ASTNode):
     def __init__(self, tokens):
         self.type = "Program"
         self.tokens = tokens
-        self.start = {"line": tokens[0].line, "col": tokens[0].start}
-        self.end = {"line": tokens[-1].line, "col": tokens[-1].end}
+        self.start = Point(tokens[0].line, tokens[0].start)
+        self.end = Point(tokens[-1].line, tokens[-1].end)
         self.children = []
 
     def __repr__(self):
