@@ -1,11 +1,11 @@
 import re
 
 # Token types as constants
-NUMBER, EOF, OPERATOR = "NUMBER", "EOF", "OPERATOR"
+NUMBER, EOF, OPERATOR, PUNCTUATION = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION"
 
 OPERATORS = ("+", "-", "*", "/", "%")
 
-PUNCTUATION = ("(", ")")
+PUNCTUATION_CHARS = ("(", ")")
 
 
 class Token:
@@ -95,7 +95,7 @@ def is_op_char(char):
 
 
 def is_punctuation(char):
-    return char in PUNCTUATION
+    return char in PUNCTUATION_CHARS
 
 
 # The main lexer function
@@ -117,10 +117,11 @@ def tokenize(input: InputStream) -> list:
         nonlocal tokens, current
         start = input.col
         has_dot = False
-        num = read_while(lambda char: not is_whitespace(char))
+        num = read_while(lambda char: is_digit(char) or char == ".")
 
         if "." in num:
             has_dot = True
+        print(num)
 
         if num.count(".") > 1 or not is_number(num):
             input.die(f"Invalid Number constant {num}")
@@ -164,6 +165,14 @@ def tokenize(input: InputStream) -> list:
             read_number()
         elif is_op_char(current):
             read_operator()
+        elif is_punctuation(current):
+            tokens.append(Token(
+                PUNCTUATION,
+                current,
+                input.line,
+                input.col,
+                input.col + 1))
+            current = input.next()
         else:
             input.die(f"Unknown input '{current}'")
 
@@ -171,3 +180,6 @@ def tokenize(input: InputStream) -> list:
     tokens.append(Token(EOF, None, input.line, input.col, input.col))
 
     return tokens
+
+
+print(tokenize(InputStream("2 * (3 + 2)")))
