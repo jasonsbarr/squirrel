@@ -180,6 +180,3 @@ def tokenize(input: InputStream) -> list:
     tokens.append(Token(EOF, None, input.line, input.col, input.col))
 
     return tokens
-
-
-print(tokenize(InputStream("2 * (3 + 2)")))
