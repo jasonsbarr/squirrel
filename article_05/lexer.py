@@ -87,7 +87,17 @@ def is_punctuation(char):
     return char in PUNCTUATION_CHARS
 
 
+def is_id_start(char):
+    return bool(re.match(r"^([a-zA-Z]|_)", char))
+
+
+def is_id_char(char):
+    return bool(re.match(r"\w", char))
+
+
 # The main lexer function
+
+
 def tokenize(input: InputStream) -> list:
     current = input.next()
     tokens = []
