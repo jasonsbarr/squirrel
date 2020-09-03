@@ -40,3 +40,16 @@ class BinaryOpNode(ASTNode):
 
     def __repr__(self):
         return f"BinaryOpNode({self.left}, {self.op}, {self.right})"
+
+
+class UnaryOpNode(ASTNode):
+
+    def __init__(self, op, expr):
+        self.op = op
+        self.expr = expr
+
+    def __str__(self):
+        return f"UnaryOp: {self.op} {self.expr}"
+
+    def __repr__(self):
+        return f"UnaryOpNode({self.op}, {self.expr})"
