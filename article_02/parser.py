@@ -1,4 +1,4 @@
-from ast import ProgramNode, Point, NumberNode
+from ast import ProgramNode, NumberNode
 
 
 def parse(tokens):
@@ -21,8 +21,6 @@ def parse(tokens):
     def parse_atom():
         if token.type == "NUMBER":
             return NumberNode(
-                token.value, Point(
-                    token.line, token.start), Point(
-                    token.line, token.end))
+                token.value)
 
     return parse_program()

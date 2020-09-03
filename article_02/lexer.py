@@ -6,18 +6,15 @@ NUMBER, EOF = "NUMBER", "EOF"
 
 class Token:
 
-    def __init__(self, type, value, line, start, end):
+    def __init__(self, type, value):
         self.type = type
         self.value = value
-        self.line = line
-        self.start = start
-        self.end = end
 
     def __str__(self):
         return f"{self.type} token, value: {self.value}"
 
     def __repr__(self):
-        return f"Token({self.type}, {self.value}, {self.line}, {self.start}, {self.end})"
+        return f"Token({self.type}, {self.value})"
 
 
 class InputException(Exception):
@@ -31,8 +28,6 @@ class InputStream:
     def __init__(self, input):
         self.input = input
         self.pos = -1
-        self.line = 1
-        self.col = 0
 
     def next(self):
         """Get next char from input and advance position"""
@@ -42,12 +37,6 @@ class InputStream:
             char = self.input[self.pos]
         except IndexError:
             char = ""
-
-        if char == "\n":
-            self.line += 1
-            self.col = 0
-        else:
-            self.col += 1
 
         return char
 
@@ -66,7 +55,7 @@ class InputStream:
 
     def die(self, msg):
         """Raise an exception on bad input"""
-        raise InputException(f"{msg} at ({self.line}:{self.col})")
+        raise InputException(f"{msg}")
 
 
 # Helper functions
@@ -99,7 +88,6 @@ def tokenize(input: InputStream) -> list:
     def read_number():
         """Create number token from int or float literal"""
         nonlocal tokens, current
-        start = input.col
         has_dot = False
         num = read_while(lambda char: is_digit(char) or char == ".")
 
@@ -113,18 +101,12 @@ def tokenize(input: InputStream) -> list:
             tokens.append(
                 Token(
                     NUMBER,
-                    float(num),
-                    input.line,
-                    start,
-                    input.col))
+                    float(num)))
         else:
             tokens.append(
                 Token(
                     NUMBER,
-                    int(num),
-                    input.line,
-                    start,
-                    input.col))
+                    int(num)))
 
     # While there is input, create tokens based on the current character
     while input.pos < len(input.input):
@@ -137,6 +119,6 @@ def tokenize(input: InputStream) -> list:
             input.die(f"Unknown input '{current}'")
 
     # Add the final EOF token to signal the end of input
-    tokens.append(Token(EOF, None, input.line, input.col, input.col))
+    tokens.append(Token(EOF, None))
 
     return tokens
