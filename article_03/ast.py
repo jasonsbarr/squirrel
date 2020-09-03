@@ -1,22 +1,7 @@
-class Point:
-
-    def __init__(self, line, col):
-        self.line = line
-        self.col = col
-
-    def __str__(self):
-        return f"({self.line}:{self.col})"
-
-    def __repr__(self):
-        return f"Point({self.line}, {self.col})"
-
-
 class ASTNode:
 
-    def __init__(self, node_type, start, end):
+    def __init__(self, node_type):
         self.type = node_type
-        self.start = start
-        self.end = end
 
 
 class ProgramNode(ASTNode):
@@ -24,8 +9,7 @@ class ProgramNode(ASTNode):
     def __init__(self, tokens):
         self.tokens = tokens
         self.children = []
-        super().__init__("Program", Point(tokens[0].line, tokens[0].start), Point(
-            tokens[-1].line, tokens[-1].end))
+        super().__init__("Program")
 
     def __repr__(self):
         return f"ProgramNode({self.tokens})"
@@ -37,17 +21,17 @@ class ProgramNode(ASTNode):
 class NumberNode(ASTNode):
 
     def __init__(self, value, start, end):
-        super().__init__("NumericLiteral", start, end)
+        super().__init__("NumericLiteral")
         self.value = value
 
     def __repr__(self):
-        return f"NumberNode({self.value}, {self.start}, {self.end})"
+        return f"NumberNode({self.value})"
 
 
 class BinaryOpNode(ASTNode):
 
-    def __init__(self, left, op, right, start, end):
-        super().__init__("BinaryOperation", start, end)
+    def __init__(self, left, op, right):
+        super().__init__("BinaryOperation")
         self.left = left
         self.op = op
         self.right = right
@@ -56,4 +40,4 @@ class BinaryOpNode(ASTNode):
         return f"{self.left} {self.op} {self.right}"
 
     def __repr__(self):
-        return f"BinaryOpNode({self.left}, {self.op}, {self.right}, {self.start}, {self.end})"
+        return f"BinaryOpNode({self.left}, {self.op}, {self.right})"

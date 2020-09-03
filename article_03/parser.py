@@ -29,8 +29,7 @@ def parse(tokens):
             op = token
             get_next_token()
             node = BinaryOpNode(
-                node, op, parse_factor(), node.start, Point(
-                    token.line, token.end))
+                node, op, parse_factor())
         return node
 
     def parse_factor():
@@ -41,16 +40,13 @@ def parse(tokens):
             op = token
             get_next_token()
             node = BinaryOpNode(
-                node, op, parse_atom(), node.start, Point(
-                    token.line, token.end))
+                node, op, parse_atom())
         return node
 
     def parse_atom():
         if token.type == "NUMBER":
             return NumberNode(
-                token.value, Point(
-                    token.line, token.start), Point(
-                    token.line, token.end))
+                token.value)
         if token.value == "(":
             get_next_token()
             node = parse_expr()
