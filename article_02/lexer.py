@@ -71,7 +71,11 @@ class InputStream:
 
 # Helper functions
 def is_digit(char):
-    return bool(re.match("[0-9]", char))
+    return bool(re.match(r"\d", char))
+
+
+def is_number(string):
+    return bool(re.match(r"^\d+\.?\d*$", string))
 
 
 def is_whitespace(char):
@@ -97,16 +101,13 @@ def tokenize(input: InputStream) -> list:
         nonlocal tokens, current
         start = input.col
         has_dot = False
-        num = read_while(is_digit)
+        num = read_while(lambda char: not is_whitespace(char))
 
-        if input.peek() == ".":
+        if "." in num:
             has_dot = True
-            num += current
-            current = input.next()
-            num += read_while(is_digit)
 
-        if input.peek() == "." and has_dot:
-            input.die("Invalid Number constant")
+        if num.count(".") > 1 or not is_number(num):
+            input.die(f"Invalid Number constant {num}")
 
         if has_dot:
             tokens.append(
