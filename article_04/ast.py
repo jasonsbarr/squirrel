@@ -45,6 +45,7 @@ class BinaryOpNode(ASTNode):
 class UnaryOpNode(ASTNode):
 
     def __init__(self, op, expr):
+        super().__init__("UnaryOperation")
         self.op = op
         self.expr = expr
 
