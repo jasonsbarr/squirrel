@@ -1,7 +1,9 @@
 import re
 
 # Token types as constants
-NUMBER, EOF = "NUMBER", "EOF"
+NUMBER, EOF, OPERATOR = "NUMBER", "EOF", "OPERATOR"
+
+OPERATORS = ("+", "-", "*", "/", "%")
 
 
 class Token:
@@ -82,6 +84,14 @@ def is_whitespace(char):
     return bool(re.match(r"\s", char))
 
 
+def is_operator(string):
+    return string in OPERATORS
+
+
+def is_op_char(char):
+    return char in "".join(OPERATORS)
+
+
 # The main lexer function
 def tokenize(input: InputStream) -> list:
     current = input.next()
@@ -126,6 +136,19 @@ def tokenize(input: InputStream) -> list:
                     start,
                     input.col))
 
+    def read_operator():
+        nonlocal tokens
+        op = read_while(is_op_char)
+        if not is_operator(op):
+            input.die(f"Unknown symbol {op}")
+        tokens.append(
+            Token(
+                OPERATOR,
+                op,
+                input.line,
+                input.col,
+                input.col + 1))
+
     # While there is input, create tokens based on the current character
     while input.pos < len(input.input):
         if is_whitespace(current):
@@ -133,6 +156,8 @@ def tokenize(input: InputStream) -> list:
             read_while(is_whitespace)
         elif is_digit(current):
             read_number()
+        elif is_op_char(current):
+            read_operator()
         else:
             input.die(f"Unknown input '{current}'")
 
