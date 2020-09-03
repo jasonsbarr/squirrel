@@ -1,7 +1,7 @@
 program
-  : expr+
+  : atom
 
-expr
+atom
   : number
 
 number
