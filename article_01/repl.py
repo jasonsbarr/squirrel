@@ -1,4 +1,4 @@
-from lexer import InputStream, InputException, lexer
+from lexer import InputStream, InputException, tokenize
 from parser import parse
 from interpreter import evaluate
 
@@ -16,7 +16,7 @@ def repl():
             continue
 
         try:
-            print(evaluate(parse(lexer(InputStream(program)))))
+            print(evaluate(parse(tokenize(InputStream(program)))))
         except InputException as e:
             print(e)
 
