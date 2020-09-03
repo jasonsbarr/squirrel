@@ -3,7 +3,7 @@ import re
 # Token types as constants
 NUMBER, EOF, OPERATOR, PUNCTUATION = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION"
 
-OPERATORS = ("+", "-", "*", "/", "%")
+OPERATORS = ("+", "-", "*", "/")
 
 PUNCTUATION_CHARS = ("(", ")")
 

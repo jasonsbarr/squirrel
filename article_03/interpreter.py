@@ -25,8 +25,6 @@ def evaluate(ast):
             return left * right
         if op.value == "/":
             return left / right
-        if op.value == "%":
-            return left % right
 
     while pos < len(ast.children):
         current_value = eval_expr(child)

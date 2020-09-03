@@ -36,11 +36,11 @@ def parse(tokens):
         node = parse_atom()
         if token.type == "NUMBER":
             get_next_token()
-        while token.value in ("*", "/", "%"):
+        while token.value in ("*", "/"):
             op = token
             get_next_token()
             node = BinaryOpNode(
-                node, op, parse_term())
+                node, op, parse_factor())
         return node
 
     def parse_atom():
