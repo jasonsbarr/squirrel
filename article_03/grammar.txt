@@ -3,7 +3,6 @@ program
 
 expr
   : term
-  | atom
 
 term
   : factor ((PLUS | MINUS) factor)*
