@@ -1,0 +1,12 @@
+program
+  : atom+
+
+atom
+  : number
+
+number
+  : digit+
+  | digit+ '.' digit+
+
+digit
+  : [0-9]
