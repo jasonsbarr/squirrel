@@ -1,8 +1,19 @@
 program
-  : atom+
+  : expr+
+
+expr
+  : binary_expr
+  | atom
+
+binary_expr
+  : term ((PLUS | MINUS) term)*
+
+term
+  : factor ((MUL | DIV) factor)*
 
 atom
   : number
+  | '(' expr ')'
 
 number
   : digit+
