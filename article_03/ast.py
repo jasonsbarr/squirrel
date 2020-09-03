@@ -46,5 +46,14 @@ class NumberNode(ASTNode):
 
 class BinaryOpNode(ASTNode):
 
-    def __init__(left, op, right, start, end):
-        super().__init__("BinaryOperation")
+    def __init__(self, left, op, right, start, end):
+        super().__init__("BinaryOperation", start, end)
+        self.left = left
+        self.op = op
+        self.right = right
+
+    def __str__(self):
+        return f"{self.left} {self.op} {self.right}"
+
+    def __repr__(self):
+        return f"BinaryOpNode({self.left}, {self.op}, {self.right}, {self.start}, {self.end})"
