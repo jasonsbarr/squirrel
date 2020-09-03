@@ -9,7 +9,7 @@ binary_expr
   : term ((PLUS | MINUS) term)*
 
 term
-  : factor ((MUL | DIV) factor)*
+  : factor ((MUL | DIV | MOD) factor)*
 
 atom
   : number
@@ -21,3 +21,18 @@ number
 
 digit
   : [0-9]
+
+PLUS
+  : '+'
+
+MINUS
+  : '-'
+
+MUL
+  : '*'
+
+DIV
+  : '/'
+
+MOD
+  : '%'
