@@ -1,5 +1,4 @@
 from ast import ProgramNode, NumberNode, BinaryOpNode
-from lexer import tokenize, InputStream
 
 
 def parse(tokens):
