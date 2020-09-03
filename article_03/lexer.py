@@ -5,6 +5,8 @@ NUMBER, EOF, OPERATOR = "NUMBER", "EOF", "OPERATOR"
 
 OPERATORS = ("+", "-", "*", "/", "%")
 
+PUNCTUATION = ("(", ")")
+
 
 class Token:
 
@@ -90,6 +92,10 @@ def is_operator(string):
 
 def is_op_char(char):
     return char in "".join(OPERATORS)
+
+
+def is_punctuation(char):
+    return char in PUNCTUATION
 
 
 # The main lexer function
