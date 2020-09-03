@@ -1,0 +1,37 @@
+program
+  : expr+
+
+expr
+  : term
+
+term
+  : factor ((PLUS | MINUS) factor)*
+
+factor
+  : atom ((MUL | DIV | MOD) atom)*
+
+atom
+  : number
+  | '(' expr ')'
+  | MINUS* atom
+
+number
+  : digit+ ["."]* digit*
+
+digit
+  : [0-9]
+
+PLUS
+  : '+'
+
+MINUS
+  : '-'
+
+MUL
+  : '*'
+
+DIV
+  : '/'
+
+MOD
+  : '%'
