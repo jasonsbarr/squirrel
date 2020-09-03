@@ -80,7 +80,7 @@ def is_whitespace(char):
 
 # The main lexer function
 def tokenize(input: InputStream) -> list:
-    current = ""
+    current = input.next()
     tokens = []
 
     def read_while(predicate):
@@ -127,13 +127,10 @@ def tokenize(input: InputStream) -> list:
 
     # While there is input, advance the counter to get the next character
     while input.pos < len(input.input):
-        current = input.next()
-
         if is_whitespace(current):
             # Skip whitespace
             read_while(is_whitespace)
-
-        if is_digit(current):
+        elif is_digit(current):
             read_number()
         else:
             input.die(f"Unknown input '{current}'")
