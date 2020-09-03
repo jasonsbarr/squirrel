@@ -3,23 +3,40 @@ program
 
 expr
   : term
+  | call
+
+call
+  : identifier '(' expr* (, expr)* ')'
 
 term
   : factor ((PLUS | MINUS) factor)*
 
 factor
-  : atom ((MUL | DIV | MOD) atom)*
+  : atom ((MUL | DIV) atom)*
 
 atom
   : number
   | '(' expr ')'
+  | identifier
   | MINUS* atom
+
+identifier
+  : starting_char (id_char)*
 
 number
   : digit+ ["."]* digit*
 
+id_char
+  : (letter | number | _)
+
+starting_char
+  : (letter | _)
+
 digit
   : [0-9]
+
+letter
+  : [a-zA-Z]
 
 PLUS
   : '+'
