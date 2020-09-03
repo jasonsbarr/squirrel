@@ -7,8 +7,9 @@ def parse(tokens):
 
     def get_next_token():
         nonlocal pos, token
-        pos += 1
-        token = tokens[pos]
+        if not token.type == "EOF":
+            pos += 1
+            token = tokens[pos]
 
     def parse_program():
         ast = ProgramNode(tokens)
@@ -21,10 +22,28 @@ def parse(tokens):
         return parse_term()
 
     def parse_term():
-        return parse_factor()
+        node = parse_factor()
+        if not token.type == "OPERATOR":
+            get_next_token()
+        while token.value in ("+", "-"):
+            op = token
+            get_next_token()
+            node = BinaryOpNode(
+                node, op, parse_factor(), node.start, Point(
+                    token.line, token.end))
+        return node
 
     def parse_factor():
-        return parse_atom()
+        node = parse_atom()
+        if not token.type == "OPERATOR":
+            get_next_token()
+        while token.value in ("*", "/", "%"):
+            op = token
+            get_next_token()
+            node = BinaryOpNode(
+                node, op, parse_atom(), node.start, Point(
+                    token.line, token.end))
+        return node
 
     def parse_atom():
         if token.type == "NUMBER":
