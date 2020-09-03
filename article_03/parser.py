@@ -51,5 +51,11 @@ def parse(tokens):
                 token.value, Point(
                     token.line, token.start), Point(
                     token.line, token.end))
+        if token.value == "(":
+            get_next_token()
+            node = parse_expr()
+            if token.value == ")":
+                get_next_token()
+            return node
 
     return parse_program()

@@ -121,7 +121,6 @@ def tokenize(input: InputStream) -> list:
 
         if "." in num:
             has_dot = True
-        print(num)
 
         if num.count(".") > 1 or not is_number(num):
             input.die(f"Invalid Number constant {num}")
