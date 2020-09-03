@@ -132,10 +132,11 @@ def tokenize(input: InputStream) -> list:
         if is_whitespace(current):
             # Skip whitespace
             read_while(is_whitespace)
-        elif is_digit(current):
+
+        if is_digit(current):
             read_number()
         else:
-            input.die(f"Unknown input {current}")
+            input.die(f"Unknown input '{current}'")
 
     # Add the final EOF token to signal the end of input
     tokens.append(Token(EOF, None, input.line, input.col, input.col))
