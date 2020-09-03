@@ -43,6 +43,10 @@ def parse(tokens):
         return node
 
     def parse_atom():
+        if token.type == "OPERATOR":
+            op = token
+            get_next_token()
+            return UnaryOpNode(op, parse_atom())
         if token.type == "NUMBER":
             return NumberNode(
                 token.value)
