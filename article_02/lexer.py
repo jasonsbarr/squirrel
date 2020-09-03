@@ -101,7 +101,7 @@ def tokenize(input: InputStream) -> list:
         nonlocal tokens, current
         start = input.col
         has_dot = False
-        num = read_while(lambda char: not is_whitespace(char))
+        num = read_while(lambda char: is_digit(char) or char == ".")
 
         if "." in num:
             has_dot = True
