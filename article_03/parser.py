@@ -1,4 +1,4 @@
-from ast import ProgramNode, Point, NumberNode, BinaryOpNode
+from ast import ProgramNode, NumberNode, BinaryOpNode
 
 
 def parse(tokens):

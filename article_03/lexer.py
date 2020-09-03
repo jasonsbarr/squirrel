@@ -10,7 +10,7 @@ PUNCTUATION_CHARS = ("(", ")")
 
 class Token:
 
-    def __init__(self, type, value, line, start, end):
+    def __init__(self, type, value):
         self.type = type
         self.value = value
 
@@ -59,7 +59,7 @@ class InputStream:
 
     def die(self, msg):
         """Raise an exception on bad input"""
-        raise InputException(f"{msg} at {input[self.pos]}")
+        raise InputException(f"{msg}")
 
 
 # Helper functions
@@ -104,7 +104,6 @@ def tokenize(input: InputStream) -> list:
     def read_number():
         """Create number token from int or float literal"""
         nonlocal tokens, current
-        start = input.col
         has_dot = False
         num = read_while(lambda char: is_digit(char) or char == ".")
 

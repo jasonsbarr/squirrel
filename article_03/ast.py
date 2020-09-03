@@ -20,7 +20,7 @@ class ProgramNode(ASTNode):
 
 class NumberNode(ASTNode):
 
-    def __init__(self, value, start, end):
+    def __init__(self, value):
         super().__init__("NumericLiteral")
         self.value = value
 
