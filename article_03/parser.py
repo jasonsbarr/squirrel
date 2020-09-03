@@ -1,4 +1,5 @@
 from ast import ProgramNode, NumberNode, BinaryOpNode
+from lexer import tokenize, InputStream
 
 
 def parse(tokens):
@@ -12,19 +13,18 @@ def parse(tokens):
             token = tokens[pos]
 
     def parse_program():
-        ast = ProgramNode(tokens)
+        ast = ProgramNode()
         while not token.type == "EOF":
             ast.children.append(parse_expr())
             get_next_token()
         return ast
 
     def parse_expr():
-        return parse_term()
+        node = parse_term()
+        return node
 
     def parse_term():
         node = parse_factor()
-        if not token.type == "OPERATOR":
-            get_next_token()
         while token.value in ("+", "-"):
             op = token
             get_next_token()
@@ -34,13 +34,13 @@ def parse(tokens):
 
     def parse_factor():
         node = parse_atom()
-        if not token.type == "OPERATOR":
+        if token.type == "NUMBER":
             get_next_token()
         while token.value in ("*", "/", "%"):
             op = token
             get_next_token()
             node = BinaryOpNode(
-                node, op, parse_atom())
+                node, op, parse_term())
         return node
 
     def parse_atom():

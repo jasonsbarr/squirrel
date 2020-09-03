@@ -6,13 +6,12 @@ class ASTNode:
 
 class ProgramNode(ASTNode):
 
-    def __init__(self, tokens):
-        self.tokens = tokens
+    def __init__(self):
         self.children = []
         super().__init__("Program")
 
     def __repr__(self):
-        return f"ProgramNode({self.tokens})"
+        return f"ProgramNode()"
 
     def __str__(self):
         return f"{self.type}, children: {self.children}"
@@ -37,7 +36,7 @@ class BinaryOpNode(ASTNode):
         self.right = right
 
     def __str__(self):
-        return f"{self.left} {self.op} {self.right}"
+        return f"BinOp: {self.left} {self.op} {self.right}"
 
     def __repr__(self):
         return f"BinaryOpNode({self.left}, {self.op}, {self.right})"
