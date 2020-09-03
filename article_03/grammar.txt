@@ -2,14 +2,14 @@ program
   : expr+
 
 expr
-  : binary_expr
+  : term
   | atom
 
-binary_expr
-  : term ((PLUS | MINUS) term)*
-
 term
-  : factor ((MUL | DIV | MOD) factor)*
+  : factor ((PLUS | MINUS) factor)*
+
+factor
+  : atom ((MUL | DIV | MOD) atom)*
 
 atom
   : number
