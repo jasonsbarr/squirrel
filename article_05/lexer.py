@@ -1,11 +1,11 @@
 import re
 
 # Token types as constants
-NUMBER, EOF, OPERATOR, PUNCTUATION = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION"
+NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER"
 
 OPERATORS = ("+", "-", "*", "/")
 
-PUNCTUATION_CHARS = ("(", ")")
+PUNCTUATION_CHARS = ("(", ")", ",")
 
 
 class Token:
@@ -144,6 +144,10 @@ def tokenize(input: InputStream) -> list:
                 OPERATOR,
                 op))
 
+    def read_identifier():
+        id = read_while(is_id_char)
+        tokens.append(Token(IDENTIFIER, id))
+
     # While there is input, create tokens based on the current character
     while input.pos < len(input.input):
         if is_whitespace(current):
@@ -158,6 +162,8 @@ def tokenize(input: InputStream) -> list:
                 PUNCTUATION,
                 current))
             current = input.next()
+        elif is_id_start(current):
+            read_identifier()
         else:
             input.die(f"Unknown input '{current}'")
 
