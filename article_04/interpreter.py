@@ -13,6 +13,10 @@ def evaluate(ast):
                 node.op, eval_expr(
                     node.left), eval_expr(
                     node.right))
+
+        if node.type == "UnaryOperation":
+            return apply_unary(node.op, eval_expr(node.expr))
+
         if node.type == "NumericLiteral":
             return node.value
 
@@ -25,6 +29,10 @@ def evaluate(ast):
             return left * right
         if op.value == "/":
             return left / right
+
+    def apply_unary(op, expr):
+        if op.value == "-":
+            return -expr
 
     while pos < len(ast.children):
         current_value = eval_expr(child)
