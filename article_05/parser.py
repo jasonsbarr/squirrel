@@ -19,8 +19,11 @@ def parse(tokens):
         return ast
 
     def parse_expr():
-        node = parse_term()
-        return node
+        # Expression is term
+        if token.type == "NUMBER" or token.type == "OPERATOR":
+            return parse_term()
+        if token.type == "IDENTIFIER":
+            return maybe_call
 
     def parse_term():
         node = parse_factor()
@@ -56,5 +59,8 @@ def parse(tokens):
             if token.value == ")":
                 get_next_token()
             return node
+
+    def maybe_call:
+        pass
 
     return parse_program()
