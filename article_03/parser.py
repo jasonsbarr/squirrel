@@ -6,26 +6,25 @@ def parse(tokens):
     token = tokens[pos]
 
     def get_next_token():
-        nonlocal pos
+        nonlocal pos, token
         pos += 1
-        return tokens[pos]
+        token = tokens[pos]
 
     def parse_program():
-        nonlocal token
         ast = ProgramNode(tokens)
         while not token.type == "EOF":
-            ast.children.append(parse_atom())
-            token = get_next_token()
+            ast.children.append(parse_expr())
+            get_next_token()
         return ast
 
     def parse_expr():
-        pass
+        return parse_term()
 
     def parse_term():
-        pass
+        return parse_factor()
 
     def parse_factor():
-        pass
+        return parse_atom()
 
     def parse_atom():
         if token.type == "NUMBER":
