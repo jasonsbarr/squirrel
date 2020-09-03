@@ -125,7 +125,7 @@ def tokenize(input: InputStream) -> list:
                     start,
                     input.col))
 
-    # While there is input, advance the counter to get the next character
+    # While there is input, create tokens based on the current character
     while input.pos < len(input.input):
         if is_whitespace(current):
             # Skip whitespace
