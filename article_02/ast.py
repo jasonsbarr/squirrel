@@ -22,11 +22,10 @@ class ASTNode:
 class ProgramNode(ASTNode):
 
     def __init__(self, tokens):
-        self.type = "Program"
         self.tokens = tokens
-        self.start = Point(tokens[0].line, tokens[0].start)
-        self.end = Point(tokens[-1].line, tokens[-1].end)
         self.children = []
+        super().__init__("Program", Point(tokens[0].line, tokens[0].start), Point(
+            tokens[-1].line, tokens[-1].end))
 
     def __repr__(self):
         return f"ProgramNode({self.tokens})"
