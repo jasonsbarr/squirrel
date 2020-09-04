@@ -34,8 +34,10 @@ def parse(tokens):
 
     def parse_expr():
         # Expression is term
-        if token.type == "NUMBER" or token.type == "OPERATOR":
-            return parse_term()
+        if token.type == "NUMBER":
+            return maybe_binary(parse_atom(), 0)
+        if token.type == "OPERATOR":
+            return parse_atom()
         if token.type == "IDENTIFIER":
             return maybe_call()
 
@@ -99,7 +101,7 @@ def parse(tokens):
                 binary = BinaryOpNode(
                     "AssignmentOperation" if next.value == "=" else "BinaryOperation",
                     left,
-                    next.value,
+                    next,
                     right)
                 return maybe_binary(binary, my_prec)
         return left
@@ -113,6 +115,3 @@ def parse(tokens):
         return maybe_binary(parse_atom(), 0)
 
     return parse_program()
-
-
-print(parse(tokenize(InputStream("num = 3"))))
