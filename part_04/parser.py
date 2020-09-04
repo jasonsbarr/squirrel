@@ -11,6 +11,12 @@ def parse(tokens):
             pos += 1
             token = tokens[pos]
 
+    def lookahead():
+        if not token.type == "EOF":
+            return tokens[pos + 1]
+        else:
+            return token
+
     def parse_program():
         ast = ProgramNode()
         while not token.type == "EOF":
