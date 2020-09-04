@@ -1,4 +1,5 @@
 from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode
+from lexer import InputStream, tokenize
 
 
 PRECEDENCE = {
@@ -67,7 +68,7 @@ def parse(tokens):
             op = token
             get_next_token()
             node = BinaryOpNode(
-                node, op, parse_factor())
+                "BinaryOperation", node, op, parse_factor())
         return node
 
     def parse_atom():
@@ -87,12 +88,31 @@ def parse(tokens):
         if token.type == "IDENTIFIER":
             return IdentifierNode(token.value)
 
+    def maybe_binary(left, my_prec=0):
+        next = lookahead()
+        if next.type == "OPERATOR":
+            get_next_token()
+            precedence = PRECEDENCE[token.value]
+            if precedence > my_prec:
+                get_next_token()
+                right = maybe_binary(parse_atom(), precedence)
+                binary = BinaryOpNode(
+                    "AssignmentOperation" if next.value == "=" else "BinaryOperation",
+                    left,
+                    next.value,
+                    right)
+                return maybe_binary(binary, my_prec)
+        return left
+
     def maybe_call():
         name_token = token
         next = lookahead()
         if next.value == "(":
             get_next_token()
             return parse_call(name_token)
-        return parse_atom()
+        return maybe_binary(parse_atom(), 0)
 
     return parse_program()
+
+
+print(parse(tokenize(InputStream("num = 3"))))
