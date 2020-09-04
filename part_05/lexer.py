@@ -3,7 +3,9 @@ import re
 # Token types as constants
 NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER"
 
-OPERATORS = ("+", "-", "*", "/")
+OPERATORS = ("+", "-", "*", "/", "=")
+
+KEYWORDS = ("def")
 
 PUNCTUATION_CHARS = ("(", ")", ",")
 
