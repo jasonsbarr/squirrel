@@ -40,6 +40,9 @@ def parse(tokens):
             return parse_atom()
         if token.type == "IDENTIFIER":
             return maybe_call()
+        if token.value == "(":
+            return maybe_binary(parse_atom(), 0)
+        raise SyntaxError(f"Unknown token: {token}")
 
     def parse_call(name_token):
         args = []
@@ -64,9 +67,9 @@ def parse(tokens):
         if token.value == "(":
             get_next_token()
             node = parse_expr()
-            if token.value == ")":
-                get_next_token()
-            return node
+            # Needed to skip closing paren since parse_factor was advancing pos
+            get_next_token()
+            return maybe_binary(node, 0)
         if token.type == "IDENTIFIER":
             return IdentifierNode(token.value)
 
