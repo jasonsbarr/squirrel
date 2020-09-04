@@ -29,17 +29,19 @@ class NumberNode(ASTNode):
 
 class BinaryOpNode(ASTNode):
 
-    def __init__(self, left, op, right):
-        super().__init__("BinaryOperation")
+    # Name parameter so it can be processed as either a binary or assignment
+    # operation
+    def __init__(self, name, left, op, right):
+        super().__init__(name)
         self.left = left
         self.op = op
         self.right = right
 
     def __str__(self):
-        return f"BinOp: {self.left} {self.op} {self.right}"
+        return f"{self.name}: {self.left} {self.op} {self.right}"
 
     def __repr__(self):
-        return f"BinaryOpNode({self.left}, {self.op}, {self.right})"
+        return f"BinaryOpNode({self.name}, {self.left}, {self.op}, {self.right})"
 
 
 class UnaryOpNode(ASTNode):
