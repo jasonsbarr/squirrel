@@ -53,8 +53,6 @@ for key, value in vars(library).items():
     if "__" not in key:
         globalVars[key] = value
 
-print(globalVars)
-
 globalEnv = Environment(vars=globalVars)
 
 
