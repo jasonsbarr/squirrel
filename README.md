@@ -4,7 +4,9 @@ Squirrel is a simple, expression-based language with prototypal objects designed
 
 ## Squirrel interpreter versions
 
-The series will build a different feature of Squirrel into the interpreter with each article. Here are the features matched with the article code:
+The series will build different features of Squirrel into the interpreter with each article. Here are the features matched with the code for the different stages in which the interpreter was built:
 
-- Article 1: no code (overview of how interpreters and languages work)
-- [Article 2](https://github.com/jasonsbarr/squirrel/tree/master/article_02): The Number type
+- Part 1: The Number type
+- Part 2: Binary arithmetic operations with precedence
+- Part 3: Unary operations
+- Part 4: Scopes and call expressions
