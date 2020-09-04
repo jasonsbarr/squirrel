@@ -57,18 +57,18 @@ def evaluate(ast, env=globalEnv):
         pos += 1
         return ast.children[pos]
 
-    def eval_expr(node, env):
+    def eval_expr(node, env: Environment):
         if node.type == "BinaryOperation":
             return apply_op(
                 node.op, eval_expr(
-                    node.left), eval_expr(
-                    node.right))
-
+                    node.left, env), eval_expr(
+                    node.right, env))
         if node.type == "UnaryOperation":
-            return apply_unary(node.op, eval_expr(node.expr))
-
+            return apply_unary(node.op, eval_expr(node.expr, env))
         if node.type == "NumericLiteral":
             return node.value
+        if node.type == "Identifier":
+            return env.get(node.name)
 
     def apply_op(op, left, right):
         if op.value == "+":
