@@ -74,7 +74,6 @@ def parse(tokens):
                 token.value)
         if token.value == "(":
             get_next_token()
-            print(token)
             node = parse_expr()
             if token.value == ")":
                 get_next_token()
