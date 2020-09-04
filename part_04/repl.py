@@ -19,6 +19,8 @@ def repl():
             print(evaluate(parse(tokenize(InputStream(program)))))
         except InputException as e:
             print(e)
+        except ReferenceError as e:
+            print(e)
 
 
 if __name__ == "__main__":
