@@ -25,7 +25,7 @@ def parse(tokens):
         if token.type == "IDENTIFIER":
             return maybe_call()
 
-    def parse_call():
+    def parse_call(name):
         pass
 
     def parse_term():
@@ -66,9 +66,10 @@ def parse(tokens):
             return IdentifierNode(token.value)
 
     def maybe_call():
+        name = token
         get_next_token()
         if token.value == "(":
-            return parse_call()
+            return parse_call(name)
         return parse_atom()
 
     return parse_program()
