@@ -8,11 +8,8 @@ expr
 call
   : identifier '(' expr* (, expr)* ')'
 
-term
-  : factor ((PLUS | MINUS) factor)*
-
-factor
-  : atom ((MUL | DIV) atom)*
+binary_operation
+  : atom OPERATOR atom
 
 atom
   : number
@@ -38,17 +35,10 @@ digit
 letter
   : [a-zA-Z]
 
-PLUS
-  : '+'
-
-MINUS
-  : '-'
-
-MUL
-  : '*'
-
-DIV
-  : '/'
-
-MOD
-  : '%'
+OPERATOR
+  : +
+  | -
+  | *
+  | /
+  | %
+  | =
