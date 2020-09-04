@@ -1,3 +1,46 @@
+import jsons
+
+
+class Environment:
+
+    def __init__(self, parent=None, vars=None):
+        self.parent = parent
+        if vars is None:
+            self.vars = {}
+        else:
+            self.vars = vars
+
+    def extend(self):
+        return Environment(parent=self)
+
+    def lookup(self, name):
+        scope = self
+        while scope:
+            if name in scope.vars:
+                return scope
+            scope = scope.parent
+        return None
+
+    def get(self, name):
+        scope = self.lookup(name)
+        if scope:
+            return scope.vars[name]
+        raise ReferenceError(f"{name} is not defined")
+
+    def set(self, name, value):
+        scope = self.lookup(name)
+
+    def define(self, name, value):
+        self.vars[name] = value
+        return True
+
+    def __str__(self):
+        return jsons.dump(self)
+
+    def __repr__(self):
+        return f"Environment({self.parent}, {self.vars})"
+
+
 def evaluate(ast):
     pos = 0
     child = ast.children[pos]
