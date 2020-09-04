@@ -46,9 +46,9 @@ def parse(tokens):
         # Skip opening paren
         get_next_token()
         while token.value != ")":
-            if token.value == ",":
-                get_next_token()
-            args.append(parse_expr())
+            if token.value != ",":
+                args.append(parse_expr())
+            get_next_token()
         # Skip closing paren
         get_next_token()
         return CallExpressionNode(name_token.value, args)
