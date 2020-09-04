@@ -54,3 +54,16 @@ class UnaryOpNode(ASTNode):
 
     def __repr__(self):
         return f"UnaryOpNode({self.op}, {self.expr})"
+
+
+class IdentifierNode(ASTNode):
+
+    def __init__(self, name):
+        super().__init__("Identifier")
+        self.name = name
+
+    def __str__(self):
+        return f"Identifier: {self.name}"
+
+    def __repr__(self):
+        return f"Identifier({self.name})"
