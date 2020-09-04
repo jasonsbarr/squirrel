@@ -1,4 +1,4 @@
-from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode
+from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode
 
 
 def parse(tokens):
@@ -59,6 +59,8 @@ def parse(tokens):
             if token.value == ")":
                 get_next_token()
             return node
+        if token.type == "IDENTIFIER":
+            return IdentifierNode(token.value)
 
     def maybe_call():
         pass
