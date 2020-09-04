@@ -47,7 +47,15 @@ class Environment:
         return f"Environment({self.parent}, {self.vars})"
 
 
-globalEnv = Environment()
+globalVars = {}
+
+for key, value in vars(library).items():
+    if "__" not in key:
+        globalVars[key] = value
+
+print(globalVars)
+
+globalEnv = Environment(vars=globalVars)
 
 
 def evaluate(ast, env=globalEnv):
@@ -89,7 +97,9 @@ def evaluate(ast, env=globalEnv):
             return -expr
 
     def apply_call(node, env):
-        pass
+        fn = env.get(node.name)
+        args = [eval_expr(arg, env) for arg in node.args]
+        return fn(*args)
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
