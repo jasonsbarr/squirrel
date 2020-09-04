@@ -45,7 +45,10 @@ class Environment:
         return f"Environment({self.parent}, {self.vars})"
 
 
-def evaluate(ast):
+globalEnv = Environment()
+
+
+def evaluate(ast, env=globalEnv):
     pos = 0
     child = ast.children[pos]
 
@@ -54,7 +57,7 @@ def evaluate(ast):
         pos += 1
         return ast.children[pos]
 
-    def eval_expr(node):
+    def eval_expr(node, env):
         if node.type == "BinaryOperation":
             return apply_op(
                 node.op, eval_expr(
@@ -82,7 +85,7 @@ def evaluate(ast):
             return -expr
 
     while pos < len(ast.children):
-        current_value = eval_expr(child)
+        current_value = eval_expr(child, env)
 
         try:
             child = get_next_node()
