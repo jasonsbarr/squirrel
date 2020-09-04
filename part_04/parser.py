@@ -34,7 +34,7 @@ def parse(tokens):
         if token.type == "IDENTIFIER":
             return maybe_call()
 
-    def parse_call(nameToken):
+    def parse_call(name_token):
         args = []
         get_next_token()
         while token.value != ")":
@@ -43,7 +43,7 @@ def parse(tokens):
             args.append(parse_expr())
         # Skip closing paren
         get_next_token()
-        return CallExpressionNode(nameToken.value, args)
+        return CallExpressionNode(name_token.value, args)
 
     def parse_term():
         node = parse_factor()
@@ -83,11 +83,11 @@ def parse(tokens):
             return IdentifierNode(token.value)
 
     def maybe_call():
-        nameToken = token
+        name_token = token
         next = lookahead()
         if next.value == "(":
             get_next_token()
-            return parse_call(nameToken)
+            return parse_call(name_token)
         return parse_atom()
 
     return parse_program()
