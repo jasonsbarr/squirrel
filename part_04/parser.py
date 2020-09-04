@@ -28,6 +28,8 @@ def parse(tokens):
         # Expression is term
         if token.type == "NUMBER" or token.type == "OPERATOR":
             return parse_term()
+        if token.value == "(":
+            return parse_term()
         if token.type == "IDENTIFIER":
             return maybe_call()
 
@@ -72,6 +74,7 @@ def parse(tokens):
                 token.value)
         if token.value == "(":
             get_next_token()
+            print(token)
             node = parse_expr()
             if token.value == ")":
                 get_next_token()
