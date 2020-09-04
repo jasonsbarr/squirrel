@@ -1,4 +1,4 @@
-from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode
+from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode
 
 
 def parse(tokens):
@@ -32,7 +32,15 @@ def parse(tokens):
             return maybe_call()
 
     def parse_call(name):
-        pass
+        args = []
+        get_next_token()
+        while token.value != ")":
+            print(token)
+            if token.value != ",":
+                args.append(parse_expr())
+
+            get_next_token()
+        return CallExpressionNode(name, args)
 
     def parse_term():
         node = parse_factor()
@@ -73,8 +81,9 @@ def parse(tokens):
 
     def maybe_call():
         name = token
-        get_next_token()
-        if token.value == "(":
+        next = lookahead()
+        if next.value == "(":
+            get_next_token()
             return parse_call(name)
         return parse_atom()
 
