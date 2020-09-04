@@ -16,7 +16,7 @@ atom
   | MINUS* atom
 
 number
-  : digit+ ["."]* digit*
+  : digit+ (".")? digit*
 
 digit
   : [0-9]

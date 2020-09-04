@@ -15,7 +15,7 @@ atom
   | '(' expr ')'
 
 number
-  : digit+ ["."]* digit*
+  : digit+ (".")? digit*
 
 digit
   : [0-9]
