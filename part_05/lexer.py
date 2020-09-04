@@ -1,7 +1,7 @@
 import re
 
 # Token types as constants
-NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER"
+NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER, KEYWORD = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER", "KEYWORD"
 
 OPERATORS = ("+", "-", "*", "/", "=")
 
@@ -97,6 +97,10 @@ def is_id_char(char):
     return bool(re.match(r"\w", char))
 
 
+def is_keyword(string):
+    return string in KEYWORDS
+
+
 # The main lexer function
 def tokenize(input: InputStream) -> list:
     current = input.next()
@@ -146,7 +150,10 @@ def tokenize(input: InputStream) -> list:
 
     def read_identifier():
         id = read_while(is_id_char)
-        tokens.append(Token(IDENTIFIER, id))
+        if is_keyword(id):
+            tokens.append(Token(KEYWORD, id))
+        else:
+            tokens.append(Token(IDENTIFIER, id))
 
     # While there is input, create tokens based on the current character
     while input.pos < len(input.input):
