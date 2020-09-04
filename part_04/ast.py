@@ -67,3 +67,20 @@ class IdentifierNode(ASTNode):
 
     def __repr__(self):
         return f"Identifier({self.name})"
+
+
+class CallExpressionNode(ASTNode):
+
+    def __init__(self, name, args=None):
+        self.name = name
+
+        if args is None:
+            self.args = []
+        else:
+            self.args = args
+
+    def __str__(self):
+        return f"Call expr function name: {self.name}, args: {self.args}"
+
+    def __repr__(self):
+        return f"CallExpressionNode({self.name}, {self.args})"
