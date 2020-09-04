@@ -1,3 +1,4 @@
+from lexer import tokenize, InputStream
 from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode
 
 
@@ -26,6 +27,9 @@ def parse(tokens):
 
     def parse_expr():
         # Expression is term
+        # print(token)
+        if token.type == "EOF":
+            raise Exception("EOF")
         if token.type == "NUMBER" or token.type == "OPERATOR":
             return parse_term()
         if token.type == "IDENTIFIER":
@@ -35,11 +39,11 @@ def parse(tokens):
         args = []
         get_next_token()
         while token.value != ")":
-            print(token)
-            if token.value != ",":
-                args.append(parse_expr())
-
-            get_next_token()
+            if token.value == ",":
+                get_next_token()
+            args.append(parse_expr())
+        # Skip closing paren
+        get_next_token()
         return CallExpressionNode(name, args)
 
     def parse_term():
