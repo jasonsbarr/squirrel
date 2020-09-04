@@ -29,13 +29,17 @@ class Environment:
 
     def set(self, name, value):
         scope = self.lookup(name)
+        if scope:
+            scope.vars[name] = value
+            return value
+        raise ReferenceError(f"{name} is not defined")
 
     def define(self, name, value):
         self.vars[name] = value
         return True
 
     def __str__(self):
-        return jsons.dump(self)
+        return str(jsons.dump(self))
 
     def __repr__(self):
         return f"Environment({self.parent}, {self.vars})"
