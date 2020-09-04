@@ -1,6 +1,13 @@
 from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode
 
 
+PRECEDENCE = {
+    "=": 1,
+    "+": 8, "-": 8,
+    "*": 10, "/": 10
+}
+
+
 def parse(tokens):
     pos = 0
     token = tokens[pos]
