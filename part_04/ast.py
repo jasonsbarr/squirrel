@@ -72,6 +72,7 @@ class IdentifierNode(ASTNode):
 class CallExpressionNode(ASTNode):
 
     def __init__(self, name, args=None):
+        super().__init__("CallExpression")
         self.name = name
 
         if args is None:
