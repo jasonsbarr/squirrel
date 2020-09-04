@@ -69,6 +69,8 @@ def evaluate(ast, env=globalEnv):
             return node.value
         if node.type == "Identifier":
             return env.get(node.name)
+        if node.type == "CallExpression":
+            return apply_call(node, env)
 
     def apply_op(op, left, right):
         if op.value == "+":
@@ -83,6 +85,9 @@ def evaluate(ast, env=globalEnv):
     def apply_unary(op, expr):
         if op.value == "-":
             return -expr
+
+    def apply_call(node, env):
+        pass
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
