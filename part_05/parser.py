@@ -5,7 +5,7 @@ from lexer import InputStream, tokenize
 PRECEDENCE = {
     "=": 1,
     "+": 8, "-": 8,
-    "*": 10, "/": 10
+    "*": 10, "/": 10, "%": 10
 }
 
 

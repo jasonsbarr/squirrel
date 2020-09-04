@@ -89,6 +89,8 @@ def evaluate(ast, env=globalEnv):
             return left * right
         if op.value == "/":
             return left / right
+        if op.value == "%":
+            return left % right
 
     def apply_unary(op, expr):
         if op.value == "-":
