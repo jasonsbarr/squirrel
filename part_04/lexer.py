@@ -96,8 +96,6 @@ def is_id_char(char):
 
 
 # The main lexer function
-
-
 def tokenize(input: InputStream) -> list:
     current = input.next()
     tokens = []
