@@ -1,5 +1,8 @@
-def sum_all(*args):
-    return sum(args)
+def sum(*args):
+    s = 0
+    for arg in args:
+        s += arg
+    return s
 
 
 def add(x, y):
@@ -18,13 +21,5 @@ def div(x, y):
     return x / y
 
 
-def get_pow(base, exp):
+def pow(base, exp):
     return base ** exp
-
-
-def get_max(*args):
-    return max(args)
-
-
-def get_min(*args):
-    return min(args)
