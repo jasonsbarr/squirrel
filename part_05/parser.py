@@ -40,6 +40,7 @@ def parse(tokens):
 
     def parse_call(name_token):
         args = []
+        # Skip opening paren
         get_next_token()
         while token.value != ")":
             if token.value == ",":
