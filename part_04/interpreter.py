@@ -1,6 +1,6 @@
 import jsons
 
-import library
+import stdlib
 
 
 class Environment:
@@ -49,7 +49,7 @@ class Environment:
 
 globalVars = {}
 
-for key, value in vars(library).items():
+for key, value in vars(stdlib).items():
     if "__" not in key:
         globalVars[key] = value
 
