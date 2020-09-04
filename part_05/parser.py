@@ -53,26 +53,6 @@ def parse(tokens):
         get_next_token()
         return CallExpressionNode(name_token.value, args)
 
-    def parse_term():
-        node = parse_factor()
-        while token.value in ("+", "-"):
-            op = token
-            get_next_token()
-            node = BinaryOpNode(
-                node, op, parse_factor())
-        return node
-
-    def parse_factor():
-        node = parse_atom()
-        if token.type == "NUMBER":
-            get_next_token()
-        while token.value in ("*", "/"):
-            op = token
-            get_next_token()
-            node = BinaryOpNode(
-                "BinaryOperation", node, op, parse_factor())
-        return node
-
     def parse_atom():
         if token.type == "OPERATOR":
             op = token
