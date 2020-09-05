@@ -2,7 +2,7 @@ import re
 from decimal import Decimal
 
 # Token types as constants
-NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER, KEYWORD = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER", "KEYWORD"
+NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER, KEYWORD, BOOLEAN, NIL = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER", "KEYWORD", "BOOLEAN", "NIL"
 
 OPERATORS = ("+", "-", "*", "/", "%", "=")
 
@@ -153,6 +153,10 @@ def tokenize(input: InputStream) -> list:
         id = read_while(is_id_char)
         if is_keyword(id):
             tokens.append(Token(KEYWORD, id))
+        elif id == "true" or id == "false":
+            tokens.append(Token(BOOLEAN, id))
+        elif id == "nil":
+            tokens.append(Token(NIL, None))
         else:
             tokens.append(Token(IDENTIFIER, id))
 
