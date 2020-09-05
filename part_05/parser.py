@@ -33,7 +33,8 @@ def parse(tokens):
         return ast
 
     def parse_expr():
-        # Expression is term
+        if token.type == "KEYWORD":
+            return parse_keyword()
         if token.type == "NUMBER":
             return maybe_binary(parse_atom(), 0)
         if token.type == "OPERATOR":
@@ -43,6 +44,9 @@ def parse(tokens):
         if token.value == "(":
             return maybe_binary(parse_atom(), 0)
         raise SyntaxError(f"Unknown token: {token}")
+
+    def parse_keyword():
+        pass
 
     def parse_call(name_token):
         args = []
