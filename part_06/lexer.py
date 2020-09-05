@@ -4,11 +4,22 @@ from decimal import Decimal
 # Token types as constants
 NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER, KEYWORD, BOOLEAN, NIL = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER", "KEYWORD", "BOOLEAN", "NIL"
 
-OPERATORS = ("+", "-", "*", "/", "%", "=", "==", "&&", "||", "!=", "!")
-
-KEYWORDS = ("def")
-
-PUNCTUATION_CHARS = ("(", ")", ",")
+OPERATORS = (
+    "+",
+    "-",
+    "*",
+    "/",
+    "%",
+    "=",
+    "==",
+    "&&",
+    "||",
+    "!=",
+    "!",
+    "<",
+    ">",
+    "<=",
+    ">=")
 
 
 class Token:
@@ -183,3 +194,6 @@ def tokenize(input: InputStream) -> list:
     tokens.append(Token(EOF, None))
 
     return tokens
+
+
+print(tokenize(InputStream("num != 4")))
