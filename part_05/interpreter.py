@@ -109,10 +109,10 @@ def evaluate(ast, env=globalEnv):
 
     def apply_declaration(node, env):
         env.define(node.var_name, None)
-        return eval_expr(node.expr)
+        return eval_expr(node.expr, env)
 
     def apply_assignment(node, env):
-        pass
+        return env.set(node.left.name, eval_expr(node.right, env))
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
