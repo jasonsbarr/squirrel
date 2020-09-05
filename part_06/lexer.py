@@ -4,7 +4,7 @@ from decimal import Decimal
 # Token types as constants
 NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER, KEYWORD, BOOLEAN, NIL = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER", "KEYWORD", "BOOLEAN", "NIL"
 
-OPERATORS = ("+", "-", "*", "/", "%", "=")
+OPERATORS = ("+", "-", "*", "/", "%", "=", "==", "&&", "||", "!=", "!")
 
 KEYWORDS = ("def")
 
