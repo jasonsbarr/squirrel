@@ -37,6 +37,8 @@ class Environment:
         raise ReferenceError(f"{name} is not defined")
 
     def define(self, name, value):
+        if name in self.vars:
+            raise ReferenceError(f"{name} is already defined")
         self.vars[name] = value
         return True
 
