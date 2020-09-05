@@ -173,6 +173,8 @@ def tokenize(input: InputStream) -> list:
             tokens.append(Token(BOOLEAN, id))
         elif id == "nil":
             tokens.append(Token(NIL, None))
+        elif id == "is":
+            tokens.append(Token(OPERATOR, id))
         else:
             tokens.append(Token(IDENTIFIER, id))
 
