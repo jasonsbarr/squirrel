@@ -87,3 +87,16 @@ class CallExpressionNode(ASTNode):
 
     def __repr__(self):
         return f"CallExpressionNode({self.name}, {self.args})"
+
+
+class VariableDeclarationNode(ASTNode):
+
+    def __init__(self, var_name, expr):
+        self.var_name = var_name
+        self.expr = expr
+
+    def __str__(self):
+        return f"Variable declaration: {self.var_name} given {self.expr}"
+
+    def __repr__(self):
+        return f"VariableDeclarationNode({self.var_name}, {self.expr})"
