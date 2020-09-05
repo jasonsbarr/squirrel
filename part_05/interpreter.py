@@ -66,6 +66,8 @@ def evaluate(ast, env=globalEnv):
         return ast.children[pos]
 
     def eval_expr(node, env: Environment):
+        if node.type == "VariableDeclaration":
+            return apply_declaration(node, env)
         if node.type == "BinaryOperation":
             return apply_op(
                 node.op, eval_expr(
@@ -100,6 +102,9 @@ def evaluate(ast, env=globalEnv):
         fn = env.get(node.name)
         args = [eval_expr(arg, env) for arg in node.args]
         return fn(*args)
+
+    def apply_declaration(node, env):
+        pass
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
