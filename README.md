@@ -10,3 +10,4 @@ The series will build different features of Squirrel into the interpreter with e
 - Part 2: Binary arithmetic operations with precedence
 - Part 3: Unary operations
 - Part 4: Scopes and call expressions
+- Part 5: Declaring and assigning variables
