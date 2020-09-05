@@ -1,4 +1,5 @@
 import re
+from decimal import Decimal
 
 # Token types as constants
 NUMBER, EOF, OPERATOR, PUNCTUATION = "NUMBER", "EOF", "OPERATOR", "PUNCTUATION"
@@ -117,7 +118,7 @@ def tokenize(input: InputStream) -> list:
             tokens.append(
                 Token(
                     NUMBER,
-                    float(num)))
+                    Decimal(num)))
         else:
             tokens.append(
                 Token(
