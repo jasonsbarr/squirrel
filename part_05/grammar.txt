@@ -8,6 +8,9 @@ expr
 call
   : identifier '(' expr* (, expr)* ')'
 
+assignment
+  : 'def' identifier '=' expr
+
 binary_operation
   : atom OPERATOR atom
 
