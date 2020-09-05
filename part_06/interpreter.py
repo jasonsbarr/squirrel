@@ -105,6 +105,8 @@ def evaluate(ast, env=globalEnv):
     def apply_unary(op, expr):
         if op.value == "-":
             return -expr
+        if op.value == "!":
+            return not expr
 
     def apply_call(node, env):
         fn = env.get(node.name)
