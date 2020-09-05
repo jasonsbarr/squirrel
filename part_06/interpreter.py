@@ -81,6 +81,10 @@ def evaluate(ast, env=globalEnv):
             return apply_unary(node.op, eval_expr(node.expr, env))
         if node.type == "NumericLiteral":
             return node.value
+        if node.type == "BooleanLiteral":
+            return node.value
+        if node.type == "NilLiteral":
+            return None
         if node.type == "Identifier":
             return env.get(node.name)
         if node.type == "CallExpression":
