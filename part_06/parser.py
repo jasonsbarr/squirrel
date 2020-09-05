@@ -40,12 +40,12 @@ def parse(tokens):
             return parse_keyword()
         if token.type == "NUMBER" or token.type == "BOOLEAN" or token.type == "NIL":
             return maybe_binary(parse_atom(), 0)
-        if token.type == "OPERATOR":
-            return parse_atom()
         if token.type == "IDENTIFIER":
             return maybe_call()
         if token.value == "(":
             return maybe_binary(parse_atom(), 0)
+        if token.type == "OPERATOR":
+            return parse_atom()
         raise SyntaxError(f"Unknown token: {token}")
 
     def parse_keyword():
