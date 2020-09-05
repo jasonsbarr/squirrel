@@ -92,6 +92,7 @@ class CallExpressionNode(ASTNode):
 class VariableDeclarationNode(ASTNode):
 
     def __init__(self, var_name, expr):
+        super().__init__("VariableDeclaration")
         self.var_name = var_name
         self.expr = expr
 
