@@ -22,6 +22,8 @@ atom
   : number
   | '(' expr ')'
   | identifier
+  | boolean
+  | nil
   | MINUS* atom
 
 identifier
@@ -41,6 +43,13 @@ digit
 
 letter
   : [a-zA-Z]
+
+boolean
+  : true
+  | false
+
+nil
+  : nil
 
 OPERATOR
   : +
