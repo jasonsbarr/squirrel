@@ -106,7 +106,8 @@ def evaluate(ast, env=globalEnv):
         return fn(*args)
 
     def apply_declaration(node, env):
-        pass
+        env.define(node.var_name, None)
+        return eval_expr(node.expr)
 
     def apply_assignment(node, env):
         pass
