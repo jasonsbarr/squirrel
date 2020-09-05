@@ -46,7 +46,8 @@ def parse(tokens):
         raise SyntaxError(f"Unknown token: {token}")
 
     def parse_keyword():
-        pass
+        if token.value == "def":
+            return parse_variable_declaration()
 
     def parse_call(name_token):
         args = []
@@ -59,6 +60,9 @@ def parse(tokens):
         # Skip closing paren
         get_next_token()
         return CallExpressionNode(name_token.value, args)
+
+    def parse_variable_declaration():
+        pass
 
     def parse_atom():
         if token.type == "OPERATOR":
