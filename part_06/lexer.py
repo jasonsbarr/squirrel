@@ -199,6 +199,3 @@ def tokenize(input: InputStream) -> list:
     tokens.append(Token(EOF, None))
 
     return tokens
-
-
-print(tokenize(InputStream("!num")))
