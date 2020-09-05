@@ -101,3 +101,28 @@ class VariableDeclarationNode(ASTNode):
 
     def __repr__(self):
         return f"VariableDeclarationNode({self.var_name}, {self.expr})"
+
+
+class BooleanNode(ASTNode):
+    def __init__(self, value):
+        super().__init__("BooleanLiteral")
+        self.value = True if value == "true" else False
+
+    def __str__(self):
+        return f"Boolean: {self.value}"
+
+    def __repr__(self):
+        return f"BooleanNode({str(self.value).lower()})"
+
+
+class NilNode(ASTNode):
+
+    def __init__(self):
+        super().__init__("NilLiteral")
+        self.value = None
+
+    def __str__(self):
+        return "Nil"
+
+    def __repr__(self):
+        return "NilNode()"
