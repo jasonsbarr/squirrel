@@ -22,6 +22,10 @@ OPERATORS = (
     "<=",
     ">=")
 
+KEYWORDS = ("def")
+
+PUNCTUATION_CHARS = ("(", ")", ",")
+
 
 class Token:
 
@@ -197,4 +201,4 @@ def tokenize(input: InputStream) -> list:
     return tokens
 
 
-print(tokenize(InputStream("num != 4")))
+print(tokenize(InputStream("!num")))
