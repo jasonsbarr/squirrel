@@ -101,6 +101,22 @@ def evaluate(ast, env=globalEnv):
             return left / right
         if op.value == "%":
             return left % right
+        if op.value == "==":
+            return left == right
+        if op.value == "&&":
+            return left and right
+        if op.value == "||":
+            return left or right
+        if op.value == "!=":
+            return left != right
+        if op.value == "<":
+            return left < right
+        if op.value == ">":
+            return left > right
+        if op.value == ">=":
+            return left >= right
+        if op.value == "<=":
+            return left <= right
 
     def apply_unary(op, expr):
         if op.value == "-":
