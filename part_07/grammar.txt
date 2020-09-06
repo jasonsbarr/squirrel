@@ -1,0 +1,60 @@
+program
+  : expr+
+
+expr
+  : term
+  | call
+  | keyword_expression
+
+keyword_expression
+  : assignment
+
+call
+  : identifier '(' expr* (, expr)* ')'
+
+assignment
+  : 'def' identifier '=' expr
+
+binary_operation
+  : atom OPERATOR atom
+
+atom
+  : number
+  | '(' expr ')'
+  | identifier
+  | boolean
+  | nil
+  | MINUS* atom
+
+identifier
+  : starting_char (id_char)*
+
+number
+  : digit+ (".")? digit*
+
+id_char
+  : (letter | number | _)
+
+starting_char
+  : (letter | _)
+
+digit
+  : [0-9]
+
+letter
+  : [a-zA-Z]
+
+boolean
+  : true
+  | false
+
+nil
+  : nil
+
+OPERATOR
+  : +
+  | -
+  | *
+  | /
+  | %
+  | =
