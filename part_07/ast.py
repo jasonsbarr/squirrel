@@ -130,7 +130,7 @@ class NilNode(ASTNode):
 
 class ConditionalNode(ASTNode):
 
-    def __init__(self, cond, then, elseExpr):
+    def __init__(self, cond, then, elseExpr=None):
         super().__init__("ConditionalExpression")
         self.cond = cond
         self.then = then
