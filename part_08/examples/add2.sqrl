@@ -1,0 +1,3 @@
+def add2(a, b) a + b
+
+add2(2, 3)
