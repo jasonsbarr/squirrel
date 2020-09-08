@@ -2,8 +2,8 @@ import re
 from decimal import Decimal
 
 # Token types as constants
-NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER, KEYWORD, BOOLEAN, NIL = (
-    "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER", "KEYWORD", "BOOLEAN", "NIL")
+NUMBER, EOF, OPERATOR, PUNCTUATION, IDENTIFIER, KEYWORD, BOOLEAN, NIL, STRING = (
+    "NUMBER", "EOF", "OPERATOR", "PUNCTUATION", "IDENTIFIER", "KEYWORD", "BOOLEAN", "NIL", "STRING")
 
 OPERATORS = (
     "+",
@@ -178,6 +178,25 @@ def tokenize(input: InputStream) -> list:
         else:
             tokens.append(Token(IDENTIFIER, id))
 
+    def read_string():
+        nonlocal current
+        escaped = False
+        s = ""
+        while not input.eof():
+            current = input.next()
+            if (escaped):
+                s += current
+                escaped = False
+            elif current == "\\":
+                escaped = True
+            elif current == '"':
+                current = input.next()
+                break
+            else:
+                s += current
+        tokens.append(Token(STRING, s))
+        print(s)
+
     # While there is input, create tokens based on the current character
     while input.pos < len(input.input):
         if is_whitespace(current):
@@ -194,6 +213,8 @@ def tokenize(input: InputStream) -> list:
             current = input.next()
         elif is_id_start(current):
             read_identifier()
+        elif current == '"':
+            read_string()
         else:
             input.die(f"Unknown input '{current}'")
 
