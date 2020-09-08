@@ -32,3 +32,27 @@ def typeof(obj):
         return "Boolean"
     if type(obj).__name__ == "NoneType":
         return "Nil"
+
+
+def str_upcase(s):
+    return s.upper()
+
+
+def str_downcase(s):
+    return s.lower()
+
+
+def str_slice(s, start, end):
+    return s[start:end]
+
+
+def str_len(s):
+    return len(s)
+
+
+def str_index(s, i):
+    return s[i]
+
+
+def str_reverse(s):
+    return s[::-1]
