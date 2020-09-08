@@ -68,6 +68,8 @@ def evaluate(ast, env=globalEnv):
         return ast.children[pos]
 
     def eval_expr(node, env: Environment):
+        if node.type == "LambdaExpression":
+            return make_lambda(node, env)
         if node.type == "ConditionalExpression":
             return apply_if(node, env)
         if node.type == "AssignmentOperation":
@@ -146,6 +148,9 @@ def evaluate(ast, env=globalEnv):
             return eval_expr(node.then, env)
         elif node.elseExpr:
             return eval_expr(node.elseExpr, env)
+
+    def make_lambda(node, env):
+        pass
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
