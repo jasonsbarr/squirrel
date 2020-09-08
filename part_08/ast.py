@@ -138,3 +138,14 @@ class ConditionalNode(ASTNode):
 
     def __repr__(self):
         return f"ConditionalNode({self.cond}, {self.then}, {self.elseExpr})"
+
+
+class LambdaNode(ASTNode):
+
+    def __init__(self, params, body):
+        super().__init__("LambdaExpression")
+        self.params = params
+        self.body = body
+
+    def __repr__(self):
+        return f"LambdaNode({self.params}, {self.body})"
