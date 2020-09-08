@@ -22,7 +22,7 @@ OPERATORS = (
     "<=",
     ">=")
 
-KEYWORDS = ("def")
+KEYWORDS = ("def", "if", "then", "else")
 
 PUNCTUATION_CHARS = ("(", ")", ",")
 
