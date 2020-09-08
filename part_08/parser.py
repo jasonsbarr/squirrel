@@ -1,4 +1,4 @@
-from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode, ConditionalNode
+from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode, ConditionalNode, LambdaNode
 from lexer import InputStream, tokenize
 
 
@@ -93,7 +93,20 @@ def parse(tokens):
         return ConditionalNode(cond, then, elseExpr)
 
     def parse_lambda():
-        pass
+        # skip lambda keyword token
+        get_next_token()
+        # skip opening paren
+        get_next_token()
+        params = []
+        if token.type == "IDENTIFIER":
+            while token.value != ")":
+                if token.value != ",":
+                    params.append(parse_expr())
+                get_next_token()
+        # skip closing paren
+        get_next_token()
+        body = parse_expr()
+        return LambdaNode(params, body)
 
     def parse_atom():
         if token.type == "OPERATOR":
@@ -141,3 +154,6 @@ def parse(tokens):
         return maybe_binary(parse_atom(), 0)
 
     return parse_program()
+
+
+print(parse(tokenize(InputStream("lambda(a, b) a + b"))))
