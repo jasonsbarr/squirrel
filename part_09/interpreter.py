@@ -89,6 +89,8 @@ def evaluate(ast, env=globalEnv):
             return node.value
         if node.type == "NilLiteral":
             return None
+        if node.type == "StringLiteral":
+            return node.value
         if node.type == "Identifier":
             return env.get(node.name)
         if node.type == "CallExpression":
