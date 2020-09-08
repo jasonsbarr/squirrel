@@ -52,6 +52,8 @@ def parse(tokens):
     def parse_keyword():
         if token.value == "def":
             return parse_variable_declaration()
+        if token.value == "if":
+            return parse_if()
 
     def parse_call(name_token):
         args = []
@@ -71,6 +73,9 @@ def parse(tokens):
         var_name_token = token
         expr = maybe_binary(parse_atom(), 0)
         return VariableDeclarationNode(var_name_token.value, expr)
+
+    def parse_if():
+        pass
 
     def parse_atom():
         if token.type == "OPERATOR":
