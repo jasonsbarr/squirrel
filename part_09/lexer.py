@@ -195,7 +195,6 @@ def tokenize(input: InputStream) -> list:
             else:
                 s += current
         tokens.append(Token(STRING, s))
-        print(s)
 
     # While there is input, create tokens based on the current character
     while input.pos < len(input.input):
