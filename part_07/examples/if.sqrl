@@ -1,0 +1,6 @@
+def num = 5
+if num != 5 then
+  25
+else if num == 5 then
+  5
+else 22
