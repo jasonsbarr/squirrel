@@ -134,7 +134,7 @@ class ConditionalNode(ASTNode):
         super().__init__("ConditionalExpression")
         self.cond = cond
         self.then = then
-        self.else = elseExpr
+        self.elseExpr = elseExpr
 
     def __repr__(self):
-        return f"ConditionalNode({self.cond}, {self.then}, {self.else})"
+        return f"ConditionalNode({self.cond}, {self.then}, {self.elseExpr})"
