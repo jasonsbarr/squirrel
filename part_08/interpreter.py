@@ -136,7 +136,10 @@ def evaluate(ast, env=globalEnv):
         return fn(*args)
 
     def apply_declaration(node, env):
-        env.define(node.var_name, None)
+        if node.expr.type == "LambdaExpression":
+            env.define(node.var_name, make_lambda(node.expr, env))
+        else:
+            env.define(node.var_name, None)
         return eval_expr(node.expr, env)
 
     def apply_assignment(node, env):
