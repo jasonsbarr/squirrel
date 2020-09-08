@@ -149,3 +149,16 @@ class LambdaNode(ASTNode):
 
     def __repr__(self):
         return f"LambdaNode({self.params}, {self.body})"
+
+
+class StringNode(ASTNode):
+
+    def __init__(self, value):
+        super().__init__("StringLiteral")
+        self.value = value
+
+    def __str__(self):
+        return f"String: {self.value}"
+
+    def __repr__(self):
+        return f"StringNode({self.value})"
