@@ -73,7 +73,23 @@ def parse(tokens):
         # Skip def to get variable name
         get_next_token()
         var_name_token = token
-        expr = maybe_binary(parse_atom(), 0)
+        next_tok = lookahead()
+        if next_tok.value == "(":
+            # skip opening paren
+            get_next_token()
+            get_next_token()
+            params = []
+            if token.type == "IDENTIFIER":
+                while token.value != ")":
+                    if token.value != ",":
+                        params.append(parse_expr())
+                    get_next_token()
+            # skip closing paren
+            get_next_token()
+            body = parse_expr()
+            expr = LambdaNode(params, body)
+        else:
+            expr = maybe_binary(parse_atom(), 0)
         return VariableDeclarationNode(var_name_token.value, expr)
 
     def parse_if():
@@ -87,10 +103,10 @@ def parse(tokens):
         get_next_token()
         if (token.value == "else"):
             get_next_token()
-            elseExpr = parse_expr()
+            else_expr = parse_expr()
         else:
-            elseExpr = None
-        return ConditionalNode(cond, then, elseExpr)
+            else_expr = None
+        return ConditionalNode(cond, then, else_expr)
 
     def parse_lambda():
         # skip lambda keyword token
@@ -154,3 +170,6 @@ def parse(tokens):
         return maybe_binary(parse_atom(), 0)
 
     return parse_program()
+
+
+print(parse(tokenize(InputStream("def add2(a, b) a + b"))))
