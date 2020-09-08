@@ -68,6 +68,8 @@ def evaluate(ast, env=globalEnv):
         return ast.children[pos]
 
     def eval_expr(node, env: Environment):
+        if node.type == "ConditionalExpression":
+            return apply_if(node, env)
         if node.type == "AssignmentOperation":
             return apply_assignment(node, env)
         if node.type == "VariableDeclaration":
@@ -137,6 +139,13 @@ def evaluate(ast, env=globalEnv):
 
     def apply_assignment(node, env):
         return env.set(node.left.name, eval_expr(node.right, env))
+
+    def apply_if(node, env):
+        cond = eval_expr(node.cond, env)
+        if cond:
+            return eval_expr(node.then, env)
+        elif node.elseExpr:
+            return eval_expr(node.elseExpr, env)
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
