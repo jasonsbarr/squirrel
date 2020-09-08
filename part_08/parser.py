@@ -54,6 +54,8 @@ def parse(tokens):
             return parse_variable_declaration()
         if token.value == "if":
             return parse_if()
+        if token.value == "lambda":
+            return parse_lambda()
 
     def parse_call(name_token):
         args = []
@@ -89,6 +91,9 @@ def parse(tokens):
         else:
             elseExpr = None
         return ConditionalNode(cond, then, elseExpr)
+
+    def parse_lambda():
+        pass
 
     def parse_atom():
         if token.type == "OPERATOR":
