@@ -1,4 +1,4 @@
-from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode, ConditionalNode, LambdaNode
+from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode, ConditionalNode, LambdaNode, StringNode
 from lexer import InputStream, tokenize
 
 
@@ -39,7 +39,7 @@ def parse(tokens):
     def parse_expr():
         if token.type == "KEYWORD":
             return parse_keyword()
-        if token.type == "NUMBER" or token.type == "BOOLEAN" or token.type == "NIL":
+        if token.type == "NUMBER" or token.type == "BOOLEAN" or token.type == "NIL" or token.type == "STRING":
             return maybe_binary(parse_atom(), 0)
         if token.type == "IDENTIFIER":
             return maybe_call()
@@ -134,6 +134,8 @@ def parse(tokens):
                 token.value)
         if token.type == "BOOLEAN":
             return BooleanNode(token.value)
+        if token.type == "STRING":
+            return StringNode(token.value)
         if token.type == "NIL":
             return NilNode()
         if token.value == "(":
