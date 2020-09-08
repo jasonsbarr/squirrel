@@ -154,6 +154,3 @@ def parse(tokens):
         return maybe_binary(parse_atom(), 0)
 
     return parse_program()
-
-
-print(parse(tokenize(InputStream("lambda(a, b) a + b"))))

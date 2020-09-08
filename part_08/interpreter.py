@@ -150,7 +150,12 @@ def evaluate(ast, env=globalEnv):
             return eval_expr(node.elseExpr, env)
 
     def make_lambda(node, env):
-        pass
+        def new_function(*args):
+            scope = env.extend()
+            for param, arg in zip(node.params, args):
+                scope.define(param.name, arg)
+            return eval_expr(node.body, scope)
+        return new_function
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
