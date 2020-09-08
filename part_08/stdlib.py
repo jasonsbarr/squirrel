@@ -1,0 +1,34 @@
+def sum(*args):
+    s = 0
+    for arg in args:
+        s += arg
+    return s
+
+
+def add(x, y):
+    return x + y
+
+
+def sub(x, y):
+    return x - y
+
+
+def mul(x, y):
+    return x * y
+
+
+def div(x, y):
+    return x / y
+
+
+def pow(base, exp):
+    return base ** exp
+
+
+def typeof(obj):
+    if type(obj).__name__ == "int" or type(obj).__name__ == "Decimal":
+        return "Number"
+    if type(obj).__name__ == "bool":
+        return "Boolean"
+    if type(obj).__name__ == "NoneType":
+        return "Nil"
