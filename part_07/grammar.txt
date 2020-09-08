@@ -5,15 +5,21 @@ expr
   : term
   | call
   | keyword_expression
+  | binary_operation
+  | atom
 
 keyword_expression
   : assignment
+  | conditional
 
 call
   : identifier '(' expr* (, expr)* ')'
 
 assignment
   : 'def' identifier '=' expr
+
+conditional
+  : 'if' expr 'then' expr ('else' expr)
 
 binary_operation
   : atom OPERATOR atom

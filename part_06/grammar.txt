@@ -5,6 +5,8 @@ expr
   : term
   | call
   | keyword_expression
+  | binary_operation
+  | atom
 
 keyword_expression
   : assignment
