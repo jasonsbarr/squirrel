@@ -30,6 +30,7 @@ binary_operation
 
 atom
   : number
+  | string
   | '(' expr ')'
   | identifier
   | boolean
@@ -42,6 +43,9 @@ identifier
 number
   : digit+ (".")? digit*
 
+string
+  : '"' unicode* '"'
+
 id_char
   : (letter | number | _)
 
@@ -53,6 +57,9 @@ digit
 
 letter
   : [a-zA-Z]
+
+unicode
+  : \X
 
 boolean
   : true
