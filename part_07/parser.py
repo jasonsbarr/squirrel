@@ -1,4 +1,4 @@
-from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode
+from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode, ConditionalNode
 from lexer import InputStream, tokenize
 
 
@@ -75,7 +75,20 @@ def parse(tokens):
         return VariableDeclarationNode(var_name_token.value, expr)
 
     def parse_if():
-        pass
+        # get if expr
+        get_next_token()
+        cond = parse_expr()
+        # skip then keyword
+        get_next_token()
+        get_next_token()
+        then = parse_expr()
+        get_next_token()
+        if (token.value == "else"):
+            get_next_token()
+            elseExpr = parse_expr()
+        else:
+            elseExpr = None
+        return ConditionalNode(cond, then, elseExpr)
 
     def parse_atom():
         if token.type == "OPERATOR":
