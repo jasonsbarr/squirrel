@@ -11,6 +11,7 @@ expr
 keyword_expression
   : assignment
   | conditional
+  | lambda
 
 call
   : identifier '(' expr* (, expr)* ')'
@@ -20,6 +21,9 @@ assignment
 
 conditional
   : 'if' expr 'then' expr ('else' expr)
+
+lambda
+  : 'lambda(' (identifier(, identifier)*)* ')' expr
 
 binary_operation
   : atom OPERATOR atom
