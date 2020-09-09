@@ -124,6 +124,17 @@ def parse(tokens):
         body = parse_expr()
         return LambdaNode(params, body)
 
+    def parse_index_expr():
+        name = token
+        # skip opening bracket
+        get_next_token()
+        # get index value
+        get_next_token()
+        idx = token
+        # skip closing bracket
+        get_next_token()
+        return IndexExpressionNode(name, idx)
+
     def parse_atom():
         if token.type == "OPERATOR":
             op = token
@@ -169,6 +180,8 @@ def parse(tokens):
         if next.value == "(":
             get_next_token()
             return parse_call(name_token)
+        if next.value == "[":
+            return parse_index_expr()
         return maybe_binary(parse_atom(), 0)
 
     return parse_program()
