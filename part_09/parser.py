@@ -130,10 +130,10 @@ def parse(tokens):
         get_next_token()
         # get index value
         get_next_token()
-        idx = token
+        idx = parse_expr()
         # skip closing bracket
         get_next_token()
-        return IndexExpressionNode(name_tok.value, idx.value)
+        return IndexExpressionNode(name_tok.value, idx)
 
     def parse_atom():
         if token.type == "OPERATOR":
