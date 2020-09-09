@@ -6,6 +6,7 @@ expr
   | call
   | keyword_expression
   | binary_operation
+  | index_expr
   | atom
 
 keyword_expression
@@ -36,7 +37,6 @@ atom
   | boolean
   | nil
   | MINUS* atom
-  | index_expr
 
 index_expr
   : identifier '[' expr ']'

@@ -1,4 +1,4 @@
-from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode, ConditionalNode, LambdaNode, StringNode
+from ast import ProgramNode, NumberNode, BinaryOpNode, UnaryOpNode, IdentifierNode, CallExpressionNode, VariableDeclarationNode, BooleanNode, NilNode, ConditionalNode, LambdaNode, StringNode, IndexExpressionNode
 from lexer import InputStream, tokenize
 
 
