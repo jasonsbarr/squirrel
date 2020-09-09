@@ -164,7 +164,7 @@ class StringNode(ASTNode):
         return f"StringNode({self.value})"
 
 
-class IndexExpression(ASTNode):
+class IndexExpressionNode(ASTNode):
 
     def __init__(self, seq, prop):
         super().__init__("IndexExpression")
