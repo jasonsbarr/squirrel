@@ -42,7 +42,7 @@ def str_downcase(s):
     return s.lower()
 
 
-def str_slice(s, start, end):
+def str_slice(s, start, end=-1):
     return s[start:end]
 
 
