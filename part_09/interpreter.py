@@ -68,6 +68,8 @@ def evaluate(ast, env=globalEnv):
         return ast.children[pos]
 
     def eval_expr(node, env: Environment):
+        if node.type == "IndexExpression":
+            return apply_index_expr(node, env)
         if node.type == "LambdaExpression":
             return make_lambda(node, env)
         if node.type == "ConditionalExpression":
@@ -161,6 +163,10 @@ def evaluate(ast, env=globalEnv):
                 scope.define(param.name, arg)
             return eval_expr(node.body, scope)
         return new_function
+
+    def apply_index_expr(node, env):
+        seq = env.get(node.seq)
+        return seq[eval_expr(node.index, env)]
 
     while pos < len(ast.children):
         current_value = eval_expr(child, env)
