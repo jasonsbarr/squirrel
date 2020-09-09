@@ -1,3 +1,4 @@
+from lib2to3.pgen2 import token
 import re
 from decimal import Decimal
 
@@ -24,7 +25,7 @@ OPERATORS = (
 
 KEYWORDS = ("def", "if", "then", "else", "lambda")
 
-PUNCTUATION_CHARS = ("(", ")", ",")
+PUNCTUATION_CHARS = ("(", ")", ",", "[", "]")
 
 
 class Token:
