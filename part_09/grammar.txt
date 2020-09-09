@@ -36,6 +36,10 @@ atom
   | boolean
   | nil
   | MINUS* atom
+  | index_expr
+
+index_expr
+  : identifier '[' expr ']'
 
 identifier
   : starting_char (id_char)*
