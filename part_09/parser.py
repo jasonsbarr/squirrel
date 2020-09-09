@@ -125,7 +125,7 @@ def parse(tokens):
         return LambdaNode(params, body)
 
     def parse_index_expr():
-        name = token
+        name_tok = token
         # skip opening bracket
         get_next_token()
         # get index value
@@ -133,7 +133,7 @@ def parse(tokens):
         idx = token
         # skip closing bracket
         get_next_token()
-        return IndexExpressionNode(name, idx)
+        return IndexExpressionNode(name_tok.value, idx.value)
 
     def parse_atom():
         if token.type == "OPERATOR":
