@@ -166,13 +166,13 @@ class StringNode(ASTNode):
 
 class IndexExpressionNode(ASTNode):
 
-    def __init__(self, seq, prop):
+    def __init__(self, seq, idx):
         super().__init__("IndexExpression")
         self.seq = seq
-        self.prop = prop
+        self.index = idx
 
     def __str__(self):
-        return f"{self.seq[{self.prop}]}"
+        return f"{self.seq[{self.index}]}"
 
     def __repr__(self):
-        return f"IndexExpression({self.seq}, {self.prop})"
+        return f"IndexExpression({self.seq}, {self.index})"
