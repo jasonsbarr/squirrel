@@ -11,3 +11,7 @@ The series will build different features of Squirrel into the interpreter with e
 - Part 3: Unary operations
 - Part 4: Scopes and call expressions
 - Part 5: Declaring and assigning variables
+- Part 6: Nil and Boolean types, Boolean expressions, interpret text files as code
+- Part 7: Branching and conditionals
+- Part 8: Functions
+- Part 9: Strings and indexing sequences by number
